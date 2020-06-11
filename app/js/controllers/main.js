@@ -6,7 +6,7 @@
     .controller('MainController', controller);
 
   function controller($scope, $rootScope, $q, $modal, $translate, $location, _allClasses, _actionGroups, _actionsByName,
-    _profile, _localStorage, _tooltips, _getActionImagePath, _bonusStats, _languages, _iActionClassSpecific)
+    _profile, _localStorage, _wsSync, _tooltips, _getActionImagePath, _bonusStats, _languages, _iActionClassSpecific)
   {
     $scope.allClasses = _allClasses;
     $scope.actionGroups = _actionGroups;
@@ -74,6 +74,8 @@
     // Final initialization
     loadLocalPageState($scope);
     _profile.useStorage(_localStorage);
+    _wsSync.useStorage(_localStorage);
+    _wsSync.start();
 
     $scope.cgBusyConfig.promise = $q.all([
       _tooltips.loadTooltips($translate.use()),

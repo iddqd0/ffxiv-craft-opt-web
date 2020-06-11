@@ -13,6 +13,7 @@
       'ffxivCraftOptWeb.services.bonusStats',
       'ffxivCraftOptWeb.services.buffsdb',
       'ffxivCraftOptWeb.services.storage',
+      'ffxivCraftOptWeb.services.wssync',
       'ffxivCraftOptWeb.services.profile',
       'ffxivCraftOptWeb.services.recipelibrary',
       'ffxivCraftOptWeb.services.simulator',
