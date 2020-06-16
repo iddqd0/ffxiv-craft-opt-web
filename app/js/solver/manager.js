@@ -1,8 +1,12 @@
-function Manager(capacity, $timeout) {
+function Manager($timeout) {
     this.$timeout = $timeout;
-    this.capacity = capacity;
-    this.pool = new WorkerPool(capacity, 'js/solver/worker.js', this);
+    this.pool = new WorkerPool('js/solver/worker.js', this);
     this.stopRequested = false;
+}
+
+Manager.prototype.init = function (capacity) {
+    this.capacity = capacity;
+    this.pool.init(this.capacity, this.callback);
 }
 
 Manager.prototype.start = function (settings, progress, success, error) {
@@ -15,25 +19,20 @@ Manager.prototype.start = function (settings, progress, success, error) {
 
     let worker_settings = angular.copy(settings);
 
-    worker_settings.solver.generations = Math.ceil(settings.solver.generations / this.capacity);
-    worker_settings.solver.population = Math.ceil(settings.solver.population / this.capacity);
-    worker_settings.maxMontecarloRuns = Math.ceil(settings.maxMontecarloRuns / this.capacity);
+    worker_settings.solver.generations = Math.ceil(settings.solver.generations / 4);
+    worker_settings.solver.population = Math.ceil(settings.solver.population / 4);
+    worker_settings.maxMontecarloRuns = Math.ceil(settings.maxMontecarloRuns / 4);
 
     this.callbacks = {
-        progress: function (progressInfo) {
-            progressInfo.maxGenerations = settings.solver.generations;
-            progress(progressInfo);
-        },
+        progress: progress,
         success: success,
         error: error
     };
 
 
-    this.pool.init(this.callback);
-
     this.pool.broadcastM({start: worker_settings}, function (message) {
         if (!message.start.specifySeed) {
-            message.start.seed = Math.floor(Math.random(1, 1000000000));
+            message.start.seed = Math.floor(Math.random(1, 10000000));
         }
         return message;
     });

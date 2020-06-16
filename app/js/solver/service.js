@@ -1,25 +1,29 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  angular
-    .module('ffxivCraftOptWeb.services.solver', [])
-    .service('_solver', SolverService);
+    angular
+        .module('ffxivCraftOptWeb.services.solver', [])
+        .service('_solver', SolverService);
 
-  function SolverService($timeout) {
-    this.manager = new Manager(window.navigator.hardwareConcurrency, $timeout);
-  }
+    function SolverService($timeout) {
+        this.manager = new Manager($timeout);
+    }
 
-  SolverService.$inject = ['$timeout'];
+    SolverService.$inject = ['$timeout'];
 
-  SolverService.prototype.start = function(settings, progress, success, error) {
-    this.manager.start(settings, progress, success, error);
-  };
+    SolverService.prototype.init = function (capacity) {
+        this.manager.init(capacity);
+    };
 
-  SolverService.prototype.stop = function() {
-    this.manager.stop();
-  };
+    SolverService.prototype.start = function (settings, progress, success, error) {
+        this.manager.start(settings, progress, success, error);
+    };
 
-  SolverService.prototype.resume = function() {
-    this.manager.resume();
-  };
+    SolverService.prototype.stop = function () {
+        this.manager.stop();
+    };
+
+    SolverService.prototype.resume = function () {
+        this.manager.resume();
+    };
 })();

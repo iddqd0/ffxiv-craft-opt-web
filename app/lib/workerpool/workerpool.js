@@ -17,15 +17,15 @@
  * @param {string} url - The web worker url. Workers are lazily created.
  *
  */
-function WorkerPool(capacity, url, manager) {
-    this.capacity = capacity;
+function WorkerPool(url, manager) {
     this.url = url;
     this.manager = manager;
     this.workers = Array();
     this.idle = Array();
 }
 
-WorkerPool.prototype.init = function (callback) {
+WorkerPool.prototype.init = function (capacity, callback) {
+    this.capacity = capacity;
     for (let i = 0; i <= this.capacity; i++) {
         this.spawn(callback);
     }

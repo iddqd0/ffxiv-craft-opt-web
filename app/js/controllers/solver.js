@@ -6,13 +6,15 @@
         .controller('SolverController', controller);
 
     function controller($scope, $state, $stateParams, _solver, _simulator, _bonusStats) {
+        const capacity = window.navigator.hardwareConcurrency * 2;
+        const capacityCoefficient = 4;
         // Global page state
         if (!$scope.pageState.solverStatus) {
             angular.extend($scope.pageState, {
                 solverStatus: {
                     running: false,
                     generationsCompleted: 0,
-                    maxGenerations: $scope.solver.generations,
+                    maxGenerations: $scope.solver.generations * (capacity / capacityCoefficient),
                     state: null,
                     logs: {
                         execution: '',
@@ -46,6 +48,8 @@
         $scope.sequenceActionClasses = sequenceActionClasses;
 
         $scope.$on('synth.changed', resetSolver);
+
+        _solver.init(capacity);
 
         //
         // State Parameter Handling
@@ -161,6 +165,7 @@
         }
 
         function startSolver() {
+            $scope.pageState.solverStatus.maxGenerations = $scope.solver.generations * (capacity / capacityCoefficient);
             var sequence = $scope.pageState.solverStatus.sequence;
             if (sequence.length === 0) sequence = $scope.sequence;
 
@@ -183,7 +188,7 @@
         function resetSolver() {
             $scope.pageState.solverStatus.error = null;
             $scope.pageState.solverStatus.generationsCompleted = 0;
-            $scope.pageState.solverStatus.maxGenerations = $scope.solver.generations;
+            $scope.pageState.solverStatus.maxGenerations = $scope.solver.generations * (capacity / capacityCoefficient);
             $scope.pageState.solverStatus.state = null;
 
             $scope.pageState.solverStatus.logs = {
