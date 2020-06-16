@@ -19,7 +19,7 @@ Manager.prototype.start = function (settings, progress, success, error) {
 
     let worker_settings = angular.copy(settings);
 
-    worker_settings.solver.generations = Math.ceil(settings.solver.generations / 4);
+    worker_settings.solver.generations = Math.ceil(settings.solver.generations);
     worker_settings.solver.population = Math.ceil(settings.solver.population / 4);
     worker_settings.maxMontecarloRuns = Math.ceil(settings.maxMontecarloRuns / 4);
 

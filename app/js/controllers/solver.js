@@ -7,7 +7,7 @@
 
     function controller($scope, $state, $stateParams, _solver, _simulator, _bonusStats) {
         const capacity = window.navigator.hardwareConcurrency * 2;
-        const capacityCoefficient = 4;
+        const capacityCoefficient = 1;
         // Global page state
         if (!$scope.pageState.solverStatus) {
             angular.extend($scope.pageState, {
