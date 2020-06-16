@@ -1318,7 +1318,7 @@ function evalSeq(individual, mySynth, penaltyWeight) {
         penalties += Math.abs(mySynth.reliabilityIndex - result.reliability);
     }
 
-    if (mySynth.maxLength > 0) {
+    if (mySynth.maxLength > 0 && mySynth.maxLengthEnabled) {
         var maxActionsExceeded = individual.length - mySynth.maxLength;
         if (maxActionsExceeded > 0) {
             penalties += 0.1 * maxActionsExceeded;

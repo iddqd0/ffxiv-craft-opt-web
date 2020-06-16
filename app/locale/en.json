@@ -80,7 +80,6 @@
   "EXECUTION_LOG": "Execution Log",
 
   "SOLVER_START": "Start",
-  "SOLVER_AUTORUN": "Autorun",
   "SOLVER_STOP": "Stop",
   "SOLVER_CONTINUE": "Continue",
   "SOLVER_RESET": "Reset",

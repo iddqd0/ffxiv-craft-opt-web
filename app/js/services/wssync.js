@@ -71,6 +71,7 @@
     }
 
     wsSync.prototype.start = function () {
+        return;
         let webSocket = this.connectWS();
 
         setInterval(function () {
@@ -79,7 +80,7 @@
             } else {
                 webSocket = this.connectWS();
             }
-        }, 2000);
+        }.bind(this), 2000);
     };
 })();
 

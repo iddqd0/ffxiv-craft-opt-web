@@ -80,10 +80,6 @@
                     ng-disabled="!allForms.$valid || !pageState.solverStatus.state || !isValidSequence(pageState.solverStatus.sequence, recipe.cls) || pageState.solverStatus.error">
                 {{ 'SOLVER_CONTINUE' | translate }}
             </button>
-            <button class="btn btn-primary" ng-click="autorunSolver()"
-                    ng-disabled="!allForms.$valid || !isValidSequence(sequence, recipe.cls) || pageState.solverStatus.running">
-                {{ 'SOLVER_AUTORUN' | translate }}
-            </button>
             <button class="btn btn-danger" ng-click="resetSolver()"
                     ng-disabled="pageState.solverStatus.running || !pageState.solverStatus.state">
                 {{ 'SOLVER_RESET' | translate }}

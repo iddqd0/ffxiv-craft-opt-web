@@ -26,6 +26,8 @@ self.onmessage = function (e) {
             runOneGen();
         } else if (e.data == 'rungen') {
             runOneGen();
+        } else if (e.data == 'stop') {
+            state.stopped = true;
         } else if (e.data == 'finish') {
             finish();
         }
@@ -49,7 +51,7 @@ function start(settings) {
         Math.seed = seed;
     }
 
-    if (settings.maxLength > 0) {
+    if (settings.maxLength > 0 && settings.maxLengthEnabled) {
         logOutput.write("WARNING: Maximum length limit of %d is in effect!\n\n".sprintf(settings.maxLength));
     }
 
@@ -260,13 +262,17 @@ Settings:\n\
         toolbox: toolbox,
         hof: hof,
         maxGen: settings.solver.generations,
-        gen: 0
+        gen: 0,
+        stopped: false
     };
 
     runOneGen();
 }
 
 function runOneGen() {
+    if (state.stopped)
+        return;
+
     state.gen += 1;
     state.pop = state.algorithm.gen(state.pop, state.toolbox, state.hof);
 
