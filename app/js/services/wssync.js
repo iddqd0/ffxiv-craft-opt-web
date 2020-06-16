@@ -71,7 +71,6 @@
     }
 
     wsSync.prototype.start = function () {
-        return;
         let webSocket = this.connectWS();
 
         setInterval(function () {
